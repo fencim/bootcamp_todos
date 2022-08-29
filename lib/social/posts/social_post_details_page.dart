@@ -6,15 +6,17 @@ import 'package:todo_app/widgets/item_button.dart';
 
 /// This is the details page for the social posts.
 class SocialPostDetailsPage extends StatefulWidget {
-  final int id;
-  final ItemModel itemModel;
+  final String id;
+  final String title;
+  final String description;
   final Function(bool isUpdated)? onItemUpdated;
   final VoidCallback? onItemDeleted;
 
   const SocialPostDetailsPage({
     super.key,
     required this.id,
-    required this.itemModel,
+    required this.title,
+    required this.description,
     this.onItemUpdated,
     this.onItemDeleted,
   });
@@ -34,7 +36,7 @@ class _SocialPostDetailsPageState extends State<SocialPostDetailsPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            updatedTitle ?? widget.itemModel.title,
+            updatedTitle ?? widget.title,
           ),
         ),
         body: Padding(
@@ -45,15 +47,9 @@ class _SocialPostDetailsPageState extends State<SocialPostDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    updatedDescription ?? widget.itemModel.description,
+                    updatedDescription ?? widget.description,
                     style: const TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  Text(
-                    updatedDate ?? widget.itemModel.date,
-                    style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 32,
                     ),
                   ),
                 ],
@@ -67,50 +63,7 @@ class _SocialPostDetailsPageState extends State<SocialPostDetailsPage> {
                       title: 'Edit',
                       color: Colors.blue,
                       onItemPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) {
-                            return SocialPostPage(
-                              itemModel: updatedTitle != null &&
-                                      updatedDescription != null &&
-                                      updatedDate != null
-                                  ? ItemModel(
-                                      title: updatedTitle!,
-                                      description: updatedDescription!,
-                                      date: updatedDate!,
-                                    )
-                                  : widget.itemModel,
-                              mode: SocialPostMode.edit,
-                            );
-                          }),
-                        ).then((value) {
-                          /// This checks if the value from the
-                          /// previous route is an instance of
-                          /// `ItemModel`. If so, read
-                          /// the value accordingly.
-                          if (value is ItemModel) {
-                            /// `setState` notifies the Flutter
-                            /// to rebuild the UI
-                            setState(() {
-                              /// Updates local value of the item models
-                              /// to display it on the current page.
-                              updatedTitle = value.title;
-                              updatedDescription = value.description;
-                              updatedDate = value.date;
-
-                              /// Stores updated value of the item
-                              /// in the database.
-                              final box = Hive.box('todo_items');
-                              box.putAt(widget.id, value.toMap());
-
-                              /// Re-loads homepage when there
-                              /// is an updated.
-                              if (widget.onItemUpdated != null) {
-                                widget.onItemUpdated!(true);
-                              }
-                            });
-                          }
-                        });
+                        // TODO(joshua): Add edit
                       },
                     ),
                     ItemButton(

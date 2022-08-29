@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/social/posts/social_post_details_page.dart';
 import 'package:todo_app/social/posts/social_post_page.dart';
 
 import '../../widgets/item_button.dart';
@@ -39,29 +40,43 @@ class _SocialPageState extends State<SocialPage> {
                       // Add this to read the document data
                       final data = snapshot.data!.docs[index].data()
                           as Map<String, dynamic>;
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (data['title'] is String)
-                              Text(
-                                // Add this to read the title property
-                                data['title'],
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) {
+                              return SocialPostDetailsPage(
+                                id: snapshot.data!.docs[index].id,
+                                title: data['title'],
+                                description: data['description'],
+                              );
+                            }),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (data['title'] is String)
+                                Text(
+                                  // Add this to read the title property
+                                  data['title'],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            if (data['description'] is String)
-                              Text(
-                                // Add this to read the description property
-                                data['description'],
-                                style: const TextStyle(
-                                  fontSize: 16,
+                              if (data['description'] is String)
+                                Text(
+                                  // Add this to read the description property
+                                  data['description'],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
