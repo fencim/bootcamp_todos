@@ -1,21 +1,14 @@
-
 import 'package:flutter/material.dart';
 
-class TodoItem extends StatelessWidget {
+class SocialPostItem extends StatelessWidget {
   final String title;
   final String description;
-  final String date;
-
-  /// This is used for passing a custom
-  /// function callback when the `InkWell`
-  /// in this widget is pressed.
   final VoidCallback? onItemPressed;
 
-  const TodoItem({
+  const SocialPostItem({
     super.key,
     required this.title,
     required this.description,
-    required this.date,
     this.onItemPressed,
   });
 
@@ -47,7 +40,6 @@ class TodoItem extends StatelessWidget {
                     ),
                   ),
                   Text(description),
-                  Text(date),
                 ],
               ),
             ),

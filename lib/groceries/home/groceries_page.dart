@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/groceries/items/new_grocery_item_page.dart';
+import 'package:todo_app/groceries/items/grocery_form_page.dart';
 import 'package:todo_app/models/item_model.dart';
 import 'package:todo_app/widgets/item_button.dart';
-import 'package:todo_app/widgets/todo_item.dart';
-import '../items/grocery_item_page.dart';
+import '../items/grocery_item_details_page.dart';
+import '../items/grocery_item.dart';
 
 /// This is an example todo app
 /// using local database persistence
@@ -55,7 +55,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               for (int i = 0; i < items.length; i++)
-                                TodoItem(
+                                GroceryItem(
                                   title: items[i].title,
                                   description: items[i].description,
                                   date: items[i].date,
@@ -63,7 +63,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (_) {
-                                        return ItemDetailsPage(
+                                        return GroceryItemDetailsPage(
                                           id: i,
                                           itemModel: items[i],
                                           onItemUpdated: (bool isUpdated) {
@@ -104,9 +104,9 @@ class _GroceriesPageState extends State<GroceriesPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) {
-                      return const NewGroceryItemPage(
+                      return const GroceryFormPage(
                         itemModel: null,
-                        groceryItemPageMode: GroceryItemPageMode.add,
+                        mode: GroceryFormMode.add,
                       );
                     }),
                   ).then((value) {
