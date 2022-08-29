@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/item_model.dart';
 
@@ -23,6 +24,8 @@ class SocialPostPage extends StatefulWidget {
 }
 
 class _SocialPostPageState extends State<SocialPostPage> {
+  final postsCollection = FirebaseFirestore.instance.collection('posts');
+
   final _title = TextEditingController();
   final _description = TextEditingController();
   final _date = TextEditingController();
@@ -105,23 +108,19 @@ class _SocialPostPageState extends State<SocialPostPage> {
                 alignment: Alignment.bottomCenter,
                 child: ItemButton(
                   title: widget.mode == SocialPostMode.add ? 'Save' : 'Update',
-                  onItemPressed: () {
+                  onItemPressed: () async {
                     /// This is a basic validation to check whether the
                     /// `TextField` has inputs from the user.
                     if (_title.text.isNotEmpty &&
                         _description.text.isNotEmpty &&
                         _date.text.isNotEmpty) {
-                      Navigator.pop(
-                        context,
+                      await postsCollection.add({
+                        "title": _title.text,
+                        "description": _description.text,
+                        "date": _date.text,
+                      });
 
-                        /// This is where you pass the a `dynamic`
-                        /// item.
-                        ItemModel(
-                          title: _title.text,
-                          description: _description.text,
-                          date: _date.text,
-                        ),
-                      );
+                      Navigator.pop(context);
                     }
                   },
                 ),
