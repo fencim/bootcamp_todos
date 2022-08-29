@@ -1,4 +1,4 @@
-package com.joshuamdeguzman.firestore_example
+package com.joshuamdeguzman.bootcamp_todos
 
 import io.flutter.embedding.android.FlutterActivity
 
