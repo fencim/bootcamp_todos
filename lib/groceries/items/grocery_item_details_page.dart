@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/items_feature/new_item_page.dart';
+import 'package:todo_app/groceries/items/grocery_form_page.dart';
 import 'package:todo_app/models/item_model.dart';
 import 'package:todo_app/widgets/item_button.dart';
 
-class ItemDetailsPage extends StatefulWidget {
+/// This is the details page for the grocery item.
+class GroceryItemDetailsPage extends StatefulWidget {
   final int id;
   final ItemModel itemModel;
   final Function(bool isUpdated)? onItemUpdated;
   final VoidCallback? onItemDeleted;
 
-  const ItemDetailsPage({
+  const GroceryItemDetailsPage({
     super.key,
     required this.id,
     required this.itemModel,
@@ -19,10 +20,10 @@ class ItemDetailsPage extends StatefulWidget {
   });
 
   @override
-  State<ItemDetailsPage> createState() => _ItemDetailsPageState();
+  State<GroceryItemDetailsPage> createState() => _GroceryItemDetailsPageState();
 }
 
-class _ItemDetailsPageState extends State<ItemDetailsPage> {
+class _GroceryItemDetailsPageState extends State<GroceryItemDetailsPage> {
   String? updatedTitle;
   String? updatedDescription;
   String? updatedDate;
@@ -69,7 +70,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) {
-                            return NewItemPage(
+                            return GroceryFormPage(
                               itemModel: updatedTitle != null &&
                                       updatedDescription != null &&
                                       updatedDate != null
@@ -79,7 +80,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                                       date: updatedDate!,
                                     )
                                   : widget.itemModel,
-                              itemPageMode: ItemPageMode.edit,
+                              mode: GroceryFormMode.edit,
                             );
                           }),
                         ).then((value) {

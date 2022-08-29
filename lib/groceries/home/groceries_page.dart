@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/items_feature/item_details_page.dart';
+import 'package:todo_app/groceries/items/grocery_form_page.dart';
 import 'package:todo_app/models/item_model.dart';
 import 'package:todo_app/widgets/item_button.dart';
-import 'package:todo_app/widgets/todo_item.dart';
+import '../items/grocery_item_details_page.dart';
+import '../items/grocery_item.dart';
 
-import '../items_feature/new_item_page.dart';
-import '../other_todos_page/other_todos_page.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+/// This is an example todo app
+/// using local database persistence
+/// and Hive NoSQL database.
+class GroceriesPage extends StatefulWidget {
+  const GroceriesPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<GroceriesPage> createState() => _GroceriesPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GroceriesPageState extends State<GroceriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.web),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return const OtherTodosPage();
-              }));
-            },
-          ),
-        ],
+        title: const Text('Groceries'),
       ),
-      backgroundColor: Colors.black87,
       body: Center(
         child: Stack(
           children: [
@@ -65,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               for (int i = 0; i < items.length; i++)
-                                TodoItem(
+                                GroceryItem(
                                   title: items[i].title,
                                   description: items[i].description,
                                   date: items[i].date,
@@ -73,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (_) {
-                                        return ItemDetailsPage(
+                                        return GroceryItemDetailsPage(
                                           id: i,
                                           itemModel: items[i],
                                           onItemUpdated: (bool isUpdated) {
@@ -114,9 +104,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) {
-                      return const NewItemPage(
+                      return const GroceryFormPage(
                         itemModel: null,
-                        itemPageMode: ItemPageMode.add,
+                        mode: GroceryFormMode.add,
                       );
                     }),
                   ).then((value) {

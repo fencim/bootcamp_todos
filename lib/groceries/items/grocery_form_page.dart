@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/item_model.dart';
 
-import '../widgets/item_button.dart';
+import '../../widgets/item_button.dart';
 
-enum ItemPageMode {
+enum GroceryFormMode {
   add,
   edit,
 }
 
-class NewItemPage extends StatefulWidget {
+class GroceryFormPage extends StatefulWidget {
   final ItemModel? itemModel;
-  final ItemPageMode itemPageMode;
+  final GroceryFormMode mode;
 
-  const NewItemPage({
+  const GroceryFormPage({
     super.key,
     this.itemModel,
-    this.itemPageMode = ItemPageMode.add,
+    this.mode = GroceryFormMode.add,
   });
 
   @override
-  State<NewItemPage> createState() => _NewItemPageState();
+  State<GroceryFormPage> createState() => _GroceryFormPageState();
 }
 
-class _NewItemPageState extends State<NewItemPage> {
+class _GroceryFormPageState extends State<GroceryFormPage> {
   final _title = TextEditingController();
   final _description = TextEditingController();
   final _date = TextEditingController();
@@ -30,7 +30,7 @@ class _NewItemPageState extends State<NewItemPage> {
   // Called only on first time
   @override
   void initState() {
-    if (widget.itemPageMode == ItemPageMode.edit) {
+    if (widget.mode == GroceryFormMode.edit) {
       if (widget.itemModel != null) {
         _title.text = widget.itemModel!.title;
         _description.text = widget.itemModel!.description;
@@ -48,7 +48,7 @@ class _NewItemPageState extends State<NewItemPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.itemPageMode == ItemPageMode.add ? 'New Item' : 'Edit Item',
+            widget.mode == GroceryFormMode.add ? 'New Item' : 'Edit Item',
           ),
         ),
         backgroundColor: Colors.black87,
@@ -104,9 +104,7 @@ class _NewItemPageState extends State<NewItemPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ItemButton(
-                  title: widget.itemPageMode == ItemPageMode.add
-                      ? 'Save'
-                      : 'Update',
+                  title: widget.mode == GroceryFormMode.add ? 'Save' : 'Update',
                   onItemPressed: () {
                     /// This is a basic validation to check whether the
                     /// `TextField` has inputs from the user.

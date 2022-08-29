@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:todo_app/models/item_model.dart';
 
-class TodoHttpClient {
+class TypicodeHttpClient {
   Future<List<ItemModel>> read() async {
     final uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
 

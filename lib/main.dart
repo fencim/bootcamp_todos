@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import 'home_feature/home_page.dart';
+import 'package:todo_app/firebase_options.dart';
+import 'package:todo_app/menu/menu_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   /// Make sure to initialize the Flutter binding
@@ -13,6 +15,11 @@ void main() async {
   /// so that we can use later for opening
   /// and closing boxes.
   await Hive.initFlutter();
+
+  /// Initializes Firebase services
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
@@ -28,9 +35,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      /// This is the first page loaded
-      /// in your Flutter app.
-      home: const HomePage(),
+      /// This is the very first item loaded
+      /// in the screen.
+      home: const MenuPage(),
     );
   }
 }
