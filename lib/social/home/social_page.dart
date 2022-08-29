@@ -25,11 +25,12 @@ class _SocialPageState extends State<SocialPage> {
         child: Stack(
           children: [
             SingleChildScrollView(
-              child: StreamBuilder(
+              child: StreamBuilder<QuerySnapshot>(
                 stream: postsCollection.snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                     return ListView.builder(
+                      shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return const Text('Hello world');
                       },
