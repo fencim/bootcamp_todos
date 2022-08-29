@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/menu/menu_page.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   /// Make sure to initialize the Flutter binding
@@ -16,8 +15,7 @@ void main() async {
   /// and closing boxes.
   await Hive.initFlutter();
 
-  /// Initializes Firebase
-  /// services
+  /// Initializes Firebase services
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

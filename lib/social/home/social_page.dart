@@ -13,6 +13,9 @@ class SocialPage extends StatefulWidget {
 }
 
 class _SocialPageState extends State<SocialPage> {
+  /// Initialize a post collection, make sure to use the
+  /// right name for the collection as this is
+  /// case sensitive.
   final postsCollection = FirebaseFirestore.instance.collection('posts');
 
   @override
@@ -29,9 +32,9 @@ class _SocialPageState extends State<SocialPage> {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: postsCollection.snapshots(),
                   builder: (context, snapshot) {
-                    print('JDG ${snapshot.data?.docs.length}');
                     if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                       return ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return const Text('Hello world');
