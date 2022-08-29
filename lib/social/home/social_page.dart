@@ -24,22 +24,26 @@ class _SocialPageState extends State<SocialPage> {
       body: Center(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: StreamBuilder(
-                stream: postsCollection.snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return const Text('Hello world');
-                      },
-                    );
-                  }
+            Center(
+              child: SingleChildScrollView(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: postsCollection.snapshots(),
+                  builder: (context, snapshot) {
+                    print('JDG ${snapshot.data?.docs.length}');
+                    if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return const Text('Hello world');
+                        },
+                      );
+                    }
 
-                  return const Center(
-                    child: Text('No items found.'),
-                  );
-                },
+                    return const Center(
+                      child: Text('No items found.'),
+                    );
+                  },
+                ),
               ),
             ),
             Align(
