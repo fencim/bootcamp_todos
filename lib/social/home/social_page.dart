@@ -37,7 +37,32 @@ class _SocialPageState extends State<SocialPage> {
                         itemCount: snapshot.data!.docs.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return const Text('Hello world');
+                          // Add this to read the document data
+                          final data = snapshot.data!.docs[index].data()
+                              as Map<String, dynamic>;
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  // Add this to read the title property
+                                  data['title'],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  // Add this to read the description property
+                                  data['description'],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       );
                     }
