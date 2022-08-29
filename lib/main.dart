@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import 'home_feature/home_page.dart';
+import 'package:todo_app/menu/menu_page.dart';
 
 void main() async {
   /// Make sure to initialize the Flutter binding
@@ -28,9 +27,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      /// This is the first page loaded
-      /// in your Flutter app.
-      home: const HomePage(),
+      /// This is the very first item loaded
+      /// in the screen.
+      home: const MenuPage(),
     );
   }
 }

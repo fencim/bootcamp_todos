@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/item_model.dart';
 
-import '../widgets/item_button.dart';
+import '../../widgets/item_button.dart';
 
-enum ItemPageMode {
+enum GroceryItemPageMode {
   add,
   edit,
 }
 
-class NewItemPage extends StatefulWidget {
+class NewGroceryItemPage extends StatefulWidget {
   final ItemModel? itemModel;
-  final ItemPageMode itemPageMode;
+  final GroceryItemPageMode groceryItemPageMode;
 
-  const NewItemPage({
+  const NewGroceryItemPage({
     super.key,
     this.itemModel,
-    this.itemPageMode = ItemPageMode.add,
+    this.groceryItemPageMode = GroceryItemPageMode.add,
   });
 
   @override
-  State<NewItemPage> createState() => _NewItemPageState();
+  State<NewGroceryItemPage> createState() => _NewGroceryItemPageState();
 }
 
-class _NewItemPageState extends State<NewItemPage> {
+class _NewGroceryItemPageState extends State<NewGroceryItemPage> {
   final _title = TextEditingController();
   final _description = TextEditingController();
   final _date = TextEditingController();
@@ -30,7 +30,7 @@ class _NewItemPageState extends State<NewItemPage> {
   // Called only on first time
   @override
   void initState() {
-    if (widget.itemPageMode == ItemPageMode.edit) {
+    if (widget.groceryItemPageMode == GroceryItemPageMode.edit) {
       if (widget.itemModel != null) {
         _title.text = widget.itemModel!.title;
         _description.text = widget.itemModel!.description;
@@ -48,7 +48,9 @@ class _NewItemPageState extends State<NewItemPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.itemPageMode == ItemPageMode.add ? 'New Item' : 'Edit Item',
+            widget.groceryItemPageMode == GroceryItemPageMode.add
+                ? 'New Item'
+                : 'Edit Item',
           ),
         ),
         backgroundColor: Colors.black87,
@@ -104,7 +106,7 @@ class _NewItemPageState extends State<NewItemPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ItemButton(
-                  title: widget.itemPageMode == ItemPageMode.add
+                  title: widget.groceryItemPageMode == GroceryItemPageMode.add
                       ? 'Save'
                       : 'Update',
                   onItemPressed: () {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/items_feature/new_item_page.dart';
 import 'package:todo_app/models/item_model.dart';
 import 'package:todo_app/widgets/item_button.dart';
+
+import 'new_grocery_item_page.dart';
 
 class ItemDetailsPage extends StatefulWidget {
   final int id;
@@ -69,7 +70,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) {
-                            return NewItemPage(
+                            return NewGroceryItemPage(
                               itemModel: updatedTitle != null &&
                                       updatedDescription != null &&
                                       updatedDate != null
@@ -79,7 +80,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                                       date: updatedDate!,
                                     )
                                   : widget.itemModel,
-                              itemPageMode: ItemPageMode.edit,
+                              groceryItemPageMode: GroceryItemPageMode.edit,
                             );
                           }),
                         ).then((value) {
