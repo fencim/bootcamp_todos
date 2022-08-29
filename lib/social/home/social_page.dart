@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/item_button.dart';
@@ -12,6 +13,8 @@ class SocialPage extends StatefulWidget {
 }
 
 class _SocialPageState extends State<SocialPage> {
+  final postsCollection = FirebaseFirestore.instance.collection('posts');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,22 @@ class _SocialPageState extends State<SocialPage> {
         child: Stack(
           children: [
             SingleChildScrollView(
-              child: Container(),
+              child: StreamBuilder(
+                stream: postsCollection.snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return const Text('Hello world');
+                      },
+                    );
+                  }
+
+                  return const Center(
+                    child: Text('No items found.'),
+                  );
+                },
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
